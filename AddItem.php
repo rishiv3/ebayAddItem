@@ -1,5 +1,5 @@
 <?php 
-/*  © 2008-2013 eBay Inc., All Rights Reserved */
+/*  Â© 2008-2013 eBay Inc., All Rights Reserved */
 /* Licensed under CDDL 1.0 -  http://opensource.org/licenses/cddl1.php */
 require_once('keys.php');
 ?>
@@ -128,9 +128,7 @@ function check(){
 			<a role="button" class="btn btn-default" href="index.php">Back</a></div>
 		</div>
 	</div>
-	
 	<br>
-
 </form>
 
 
