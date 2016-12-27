@@ -1,5 +1,5 @@
 <?php
-/*  © 2007-2013 eBay Inc., All Rights Reserved */
+/*  Â© 2007-2013 eBay Inc., All Rights Reserved */
 /* Licensed under CDDL 1.0 -  http://opensource.org/licenses/cddl1.php */
 
     //show all errors - useful whilst developing
@@ -30,6 +30,4 @@
         $userToken = 'sandbox_usertoken'; 
 		$paypalEmailAddress = 'SANDBOX_PAYPAL_EMAIL_ADDRESS';		
     }
-    
-    
 ?>
