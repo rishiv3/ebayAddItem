@@ -7,4 +7,9 @@ These keys can be obtained by registering at http://developer.ebay.com
 
 and for more help - http://developer.ebay.com/devzone/xml/docs/reference/ebay/additem.html
 
-Full working model will be updated soon.
+#Updated version
+
+1. Category List
+2. Add Item to the perticular Category 
+3. Save all the data to DB
+
