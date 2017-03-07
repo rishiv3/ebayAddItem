@@ -1,5 +1,5 @@
 <?php
-/*  Â© 2008-2013 eBay Inc., All Rights Reserved */
+/*  © 2008-2013 eBay Inc., All Rights Reserved */
 /* Licensed under CDDL 1.0 -  http://opensource.org/licenses/cddl1.php */
 
 
@@ -106,6 +106,7 @@ class eBaySession
 			//SiteID Indicates the eBay site to associate the call with
 			'X-EBAY-API-SITEID: ' . $this->siteID,
 		);
+		
 		return $headers;
 	}
 }
