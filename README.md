@@ -20,3 +20,5 @@ and for more help - http://developer.ebay.com/devzone/xml/docs/reference/ebay/ad
 3. get the keys and put it in the keys.php file.
 
 And you are ready to use this app :)
+
+TODO - New functionalities
