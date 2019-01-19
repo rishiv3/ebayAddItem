@@ -15,7 +15,9 @@ require_once('eBaySession.php');
 
 <?php
 $browse = '';
-$endpoint = 'http://open.api.sandbox.ebay.com/Shopping';  // URL to call
+// Sandbox URL for testing	
+//$endpoint = 'http://open.api.sandbox.ebay.com/Shopping'; 
+$endpoint = 'http://open.api.ebay.com/shopping'; // URL to call	
 $responseEncoding = 'XML';   // Format of the response
 
 $siteID  = 0; //0-US,77-DE
