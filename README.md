@@ -22,6 +22,7 @@ and for more help - http://developer.ebay.com/devzone/xml/docs/reference/ebay/ad
 And you are ready to use this app :)
 
 Test - udpate the api[s]
+waiting for developer.ebay.com to re-enable my acc. 
 
 TODO - 
 1. New functionalities
