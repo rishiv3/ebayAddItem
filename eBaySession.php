@@ -1,8 +1,4 @@
 <?php
-/*  © 2008-2013 eBay Inc., All Rights Reserved */
-/* Licensed under CDDL 1.0 -  http://opensource.org/licenses/cddl1.php */
-
-
 class eBaySession
 {
 	private $requestToken;
@@ -80,8 +76,6 @@ class eBaySession
 		//return the response
 		return $response;
 	}
-	
-	
 	
 	/**	buildEbayHeaders
 		Generates an array of string to be used as the headers for the HTTP request to eBay
