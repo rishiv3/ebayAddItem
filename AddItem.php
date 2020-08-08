@@ -1,137 +1,156 @@
 <?php
-/*  © 2008-2013 eBay Inc., All Rights Reserved */
+/*  ï¿½ 2008-2013 eBay Inc., All Rights Reserved */
 /* Licensed under CDDL 1.0 -  http://opensource.org/licenses/cddl1.php */
 require_once('keys.php');
 ?>
 <?php require_once('eBaySession.php'); ?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>AddItem</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="AddItem - Browse Categories">
+    <meta name="author" content="Rishi Vishwakarma, Banglore, India">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>AddItem - Browse Categories</title>
 
-<link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+		
+		<!-- JS, Popper.js, and jQuery -->
+		<script src="js/jquery-3.5.1.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/app.js"></script>
+				
+    <meta name="theme-color" content="#563d7c">
+  </head>
+  <body class="bg-light">
+    <div class="container">
+			<div class="py-5 text-center">
+				<img class="d-block mx-auto mb-4" src="img/ebay.png" alt="Ebay Logo"  height="100">
+				<h2>AddItem - Browse Categories</h2>
+				<p class="lead">You must use one <b class="con">AddItem</b> call to create and publish each listing. Alternatively, you can use the <b class="con">AddItems</b> call to create and publish up to five listings per call. The <b class="con">AddItem</b> call can be used to create a single-variation, fixed-price listing, but if you wish to create a multiple-variation, fixed-price listing (for example, the same shirt in varying sizes and colors), use the <b class="con">AddFixedPriceItem</b> call instead.</p>
+			</div>
+			
+			<form action="AddItem.php" method="post" enctype="multipart/form-data">
+				<div class="form-group row">
+					<label for="primaryCategory" class="col-sm-4 text-right col-form-label">Primary Category</label>
+					<div class="col-sm-8">
+						<select class="form-control-plaintext" readonly="true" id="primaryCategory" name="primaryCategory">
+							<?php $catId = $_POST['category'];
+								if(is_array($catId)):
+								foreach($catId as $val){
+								$arr = explode('-', $val);
+								echo '<option value="'.$arr[0].'">'.$arr[1].'</option>';
+						}
+						else:
+							$arr = explode('-', $catId);
+							echo '<option value="'.$arr[0].'">'.$arr[1].'</option>';
+						endif;
+								?>
+						</select>
+					</div>
+				</div>
 
-<script type="text/javascript">
-function check(){
-	var inp = document.getElementById('imageInput');
-	var numFiles = inp.files.length;
-    if(numFiles > 12){
-    	alert('Please do not choose images more than 12');
-    	document.getElementById('imageInput').value = '';
-    }
-}
-</script>
+				<div class="form-group row">
+					<label for="itemTitle" class="col-sm-4 text-right col-form-label">Item Title</label>
+					<div class="col-sm-8">
+						<?php
+							if(isset($_POST['item'])){
+								$item = $_POST['item'];
+								$arr = explode(':', $item);
+								$id = $arr[0];
+								$title = $arr[1];
+							}else{
+								$id = $title = '';
+							}
+						?>
+						<input class="form-control" type="text" id="itemTitle" name="itemTitle" value="<?php echo $title; ?>">
+					</div>
+				</div>
 
+				<div class="form-group row">
+          <label for="itemDescription" class="col-sm-4 text-right col-form-label">Item Description</label>
+          <div class="col-sm-8">
+					<textarea class="form-control" id="itemDescription" name="itemDescription" rows="10" cols="50" value="Item Deccription : DO NOT BID - This will incur prod listing fees"></textarea>
+          </div>
+				</div>
+				
+				<div class="form-group row">
+          <label for="itemCondition" class="col-sm-4 text-right col-form-label">Condition</label>
+          <div class="col-sm-8">
+            <select class="form-control" id="itemCondition" name="itemCondition" title="Condition">
+							<option value="1000">New</option>
+							<option value="3000">Used</option>
+						</select>
+          </div>
+        </div>
 
-</head>
+				<div class="form-group row">
+          <label for="listingType" class="col-sm-4 text-right col-form-label">Listing Type</label>
+          <div class="col-sm-8">
+						<select class="form-control" id="listingType" name="listingType">
+							<option value="FixedPriceItem">Fixed Price Item</option>
+						</select>
+          </div>
+				</div>
+				
+				<div class="form-group row">
+          <label for="listingDuration" class="col-sm-4 text-right col-form-label">Listing Duration</label>
+          <div class="col-sm-8">
+						<select class="form-control" id="listingDuration" name="listingDuration">
+							<option value="Days_30">30 days</option>
+						</select>
+          </div>
+        </div>
 
-<body>
-<div class="container" style="width:50%">
-<form action="AddItem.php" method="post" enctype="multipart/form-data">
-<br><div class="row">
-		<div class="col-md-6">Primary Category</div>
-		<div class="col-md-6">
-      <select class="form-control" name="primaryCategory">
-	    	<?php $catId = $_POST['category'];
-	        if(is_array($catId)):
-	        foreach($catId as $val){
-					$arr = explode('-', $val);
-					echo '<option value="'.$arr[0].'">'.$arr[1].'</option>';
-			}
-			else:
-				$arr = explode('-', $catId);
-				echo '<option value="'.$arr[0].'">'.$arr[1].'</option>';
-			endif;
-	        ?>
-      </select>
+				<div class="form-group row">
+          <label for="startPrice" class="col-sm-4 text-right col-form-label">Price</label>
+          <div class="col-sm-8">
+						<input class="form-control" type="text" id="startPrice" name="startPrice">
+          </div>
+				</div>
 
-    </div>
-	</div>
+				<!-- <div class="form-group row">
+          <label for="startPrice" class="col-sm-4 text-right col-form-label">BuyItNowPrice</label>
+          <div class="col-sm-8">
+						<input class="form-control" type="text" name="buyItNowPrice" value="">
+          </div>
+				</div> -->
 
-<br><div class="row">
-		<div class="col-md-6">Item Title</div>
-		<?php
-		if(isset($_POST['item'])){
-			$item = $_POST['item'];
-			$arr = explode(':', $item);
-			$id = $arr[0];
-			$title = $arr[1];
-		}
-		else{
-			$id = $title = '';
-		}
-		?>
-		<div class="col-md-6"><input class="form-control" type="text" name="itemTitle" value="<?php echo $title; ?>" size="49"></div>
-	</div>
+				<div class="form-group row">
+          <label for="imageInput" class="col-sm-4 text-right col-form-label">Pictures (max 12 photos)</label>
+          <div class="col-sm-8">
+						<div class="custom-file">
+							<input class="custom-file-input" name="image_file[]" id="imageInput" onchange="check()" type="file" multiple="true" required="">
+							<label class="custom-file-label" for="imageInput">Choose file...</label>
+							<div class="invalid-feedback">Example invalid custom file feedback</div>
+						</div>
+          </div>
+				</div>
 
-    <br><div class="row">
-		<div class="col-md-6">Item Description</div>
-		<div class="col-md-6"><textarea class="form-control" name="itemDescription" rows="10" cols="50" value="Item Deccription : DO NOT BID - This will incur prod listing fees"></textarea></div>
-	</div>
+				<div class="form-group row">
+          <label for="searched_keyword" class="col-sm-4 text-right col-form-label">Searched Keyword</label>
+          <div class="col-sm-8">
+						<input class="form-control" type="text" id="searched_keyword" name="searched_keyword" value="">
+          </div>
+				</div>
 
-	<br><div class="row">
-		<div class="col-md-6">Condition</div>
-		<div class="col-md-6">
-			<select class="form-control" id="itemCondition" name="itemCondition" title="Condition">
-				<option value="1000">New</option>
-				<option value="3000">Used</option>
-			</select>
-		</div>
-	</div>
+						<br>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="text-right">
+								<a role="button" class="btn btn-secondary" href="index.php">Back</a>
+								<input class="btn btn-primary" type="submit" name="submit" value="AddItem"> 
+							</div>
+						</div>
+					</div>
 
-	<br><div class="row">
-		<div class="col-md-6">Listing Type</div>
-		<div class="col-md-6">
-      <select class="form-control" name="listingType">
-        <option value="FixedPriceItem">Fixed Price Item</option>
-      </select>
-    </div>
-	</div>
+					<br>
 
-	<br><div class="row">
-	  <div class="col-md-6">Listing Duration</div>
-		<div class="col-md-6">
-	          <select class="form-control" name="listingDuration">
-	             <option value="Days_30">30 days</option>
-	          </select>
-	        </div>
-
-	</div>
-
-<br><div class="row">
-	<div class="col-md-6">Price</div>
-	<div class="col-md-6"><input class="form-control" type="text" name="startPrice"></div>
-	</div>
-
-	<!-- <br><div class="row">
-		<div class="col-md-6">BuyItNowPrice</div>
-		<div class="col-md-6"><input class="form-control" type="text" name="buyItNowPrice" value=""></div>
-	</div> -->
-
-	<br><div class="row">
-		<div class="col-md-6">Pictures (max 12 photos)</div>
-		<div class="col-md-6">
-			<input class="form-control" name="image_file[]" id="imageInput" onchange="check()" type="file" multiple="true" />
-		</div>
-	</div>
-
-	<br><div class="row">
-		<div class="col-md-6">Searched Keyword</div>
-		<div class="col-md-6"><input class="form-control" type="text" name="searched_keyword" readonly="readonly" value="<?php echo $_POST['search_keyword'];?>"></div>
-	</div>
-
-	<br><div class="row">
-		<div class="col-md-12">
-		<div class="pull-left"><input class="form-control btn btn-primary" type="submit" name="submit" value="AddItem"></div>
-		<div class="pull-right">
-			<a role="button" class="btn btn-default" href="index.php">Back</a></div>
-		</div>
-	</div>
-
-	<br>
-
-</form>
+				</form>
 
 
 <?php
@@ -175,13 +194,11 @@ function check(){
         $listingDuration = $_POST['listingDuration'];
         $safequery       = $_POST['searched_keyword'];
 
-        if(get_magic_quotes_gpc()) {
-            // print "stripslashes!!! <br>\n";
+        if($_POST['itemDescription']) { //htmlspecialchars()
             $itemDescription = stripslashes($_POST['itemDescription']);
         } else {
             $itemDescription = $_POST['itemDescription'];
         }
-        $itemDescription = $_POST['itemDescription'];
         $itemCondition   = $_POST['itemCondition'];
 
 		$siteID = 77;
@@ -189,8 +206,8 @@ function check(){
 		$verb = 'AddItem';
 
 		/*if ($listingType == 'FixedPriceItem') {
-          $buyItNowPrice = 0.0;   // don't have BuyItNow for FixedPriceItem
-        }*/
+				$buyItNowPrice = 0.0;   // don't have BuyItNow for FixedPriceItem
+			}*/
 
 		///Build the request Xml string
 		$requestXmlBody  = '<?xml version="1.0" encoding="utf-8" ?>';
@@ -209,10 +226,9 @@ function check(){
 		$requestXmlBody .= '<BestOfferEnabled>1</BestOfferEnabled>';
 		$requestXmlBody .= '</BestOfferDetails>';
 		$requestXmlBody .= '<PictureDetails>';
-		//$requestXmlBody .= '<GalleryURL>http://www.choprafoundation.org/wp-content/uploads/2013/12/03-relaxation.jpg</GalleryURL>';
-        for($j=0;$j<count($img_name);$j++):
-        //$requestXmlBody .= '<PictureURL>http://www.choprafoundation.org/wp-content/uploads/2013/12/03-relaxation.jpg</PictureURL>';
-		$requestXmlBody .= '<PictureURL>http://agscybertech.com/rishi/ebay/uploads/'.$img_name[$j].'</PictureURL>';
+		for($j=0;$j<count($img_name);$j++):
+			$requestXmlBody .= '<GalleryURL>http://example.com/uploads/'.$img_name[$j].'</GalleryURL>';
+			$requestXmlBody .= '<PictureURL>http://example.com/uploads/'.$img_name[$j].'</PictureURL>';
 		endfor;
 		$requestXmlBody .= '</PictureDetails>';
 	    //$requestXmlBody .= "<BuyItNowPrice currencyID=\"EUR\">$buyItNowPrice</BuyItNowPrice>";
@@ -234,15 +250,15 @@ function check(){
 		$requestXmlBody .= '<ReturnsAcceptedOption>'.$returnsAccepted.'</ReturnsAcceptedOption>';
 		$requestXmlBody .= '<ReturnsWithinOption>'.$returnWithin.'</ReturnsWithinOption>';
 		$requestXmlBody .= '</ReturnPolicy>';*/
-	    $requestXmlBody .= '<ShippingDetails>';
-	    $requestXmlBody .= '<ShippingType>Flat</ShippingType>';
-	    $requestXmlBody .= '<ShippingServiceOptions>';
-	    $requestXmlBody .= '<ShippingServiceAdditionalCost currencyID="EUR">2.0</ShippingServiceAdditionalCost>';
-		$requestXmlBody .= '<ShippingServiceCost currencyID="EUR">7.50</ShippingServiceCost>';
-        $requestXmlBody .= '<ShippingServicePriority>1</ShippingServicePriority>';
-        $requestXmlBody .= '<ShippingService>DE_Express</ShippingService>';
-        $requestXmlBody .= '</ShippingServiceOptions>';
-        $requestXmlBody .= '</ShippingDetails>';
+			$requestXmlBody .= '<ShippingDetails>';
+				$requestXmlBody .= '<ShippingType>Flat</ShippingType>';
+				$requestXmlBody .= '<ShippingServiceOptions>';
+				$requestXmlBody .= '<ShippingServiceAdditionalCost currencyID="EUR">2.0</ShippingServiceAdditionalCost>';
+				$requestXmlBody .= '<ShippingServiceCost currencyID="EUR">7.50</ShippingServiceCost>';
+				$requestXmlBody .= '<ShippingServicePriority>1</ShippingServicePriority>';
+				$requestXmlBody .= '<ShippingService>DE_Express</ShippingService>';
+				$requestXmlBody .= '</ShippingServiceOptions>';
+			$requestXmlBody .= '</ShippingDetails>';
 		$requestXmlBody .= '</Item>';
 		$requestXmlBody .= '</AddItemRequest>';
 
@@ -323,7 +339,7 @@ function check(){
             //Insert into Database
             $xml = simplexml_load_string($responseXml);
 			$total_images = implode(',',$img_name);
-			$conn = mysqli_connect('localhost','root','root','bay') or mysqli_connect_error();
+			$conn = mysqli_connect('localhost','root','','ebay') or mysqli_connect_error();
 			mysqli_set_charset($conn,'utf8');
 			$query = mysqli_query($conn,'INSERT INTO `ebay_items` (`search_keyword`,`categoryID`,`itemID`,`title`,`description`,`startprice`,`condition`,`listingDuration`,`image`,`listingtype`)
 				VALUES ("'.$safequery.'","'.$primaryCategory.'","'.$xml->ItemID.'","'.mysqli_real_escape_string($conn,$itemTitle).'","'.mysqli_real_escape_string($conn,$itemDescription).'","'.$startPrice.'","'.$itemCondition.'","'.$listingDuration.'","'.$total_images.'","'.$listingType.'")');

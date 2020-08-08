@@ -2,33 +2,50 @@
 require_once('keys.php') ;
 require_once('eBaySession.php');
 ?>
-<!DOCTYPE>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Browse Categories</title>
-<link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-</head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="AddItem - Browse Categories">
+    <meta name="author" content="Rishi Vishwakarma, Banglore, India">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>AddItem - Browse Categories</title>
 
-<body>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+		
+		<!-- JS, Popper.js, and jQuery -->
+		<script src="js/jquery-3.5.1.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/app.js"></script>
+				
+    <meta name="theme-color" content="#563d7c">
+  </head>
+  <body class="bg-light">
+    <div class="container">
+			<div class="py-5 text-center">
+				<img class="d-block mx-auto mb-4" src="img/ebay.png" alt="Ebay Logo"  height="100">
+				<h2>AddItem - Browse Categories</h2>
+				<p class="lead">You must use one <b class="con">AddItem</b> call to create and publish each listing. Alternatively, you can use the <b class="con">AddItems</b> call to create and publish up to five listings per call. The <b class="con">AddItem</b> call can be used to create a single-variation, fixed-price listing, but if you wish to create a multiple-variation, fixed-price listing (for example, the same shirt in varying sizes and colors), use the <b class="con">AddFixedPriceItem</b> call instead.</p>
+			</div>
 
 <?php
 $browse = '';
-// Sandbox URL for testing	
-//$endpoint = 'http://open.api.sandbox.ebay.com/Shopping'; 
-$endpoint = 'http://open.api.ebay.com/shopping'; // URL to call	
+
 $responseEncoding = 'XML';   // Format of the response
 
 $siteID  = 0; //0-US,77-DE
 
 // Construct the FindItems call
 $apicall = "$endpoint?callname=GetCategoryInfo"
-     . "&appid=$appID"
-     . "&siteid=$siteID"
-     . "&CategoryID=-1"
-     . "&version=677"
-     . "&IncludeSelector=ChildCategories";
+    			."&appid=$appID"
+    			."&siteid=$siteID"
+    			."&CategoryID=-1"
+    			."&version=677"
+    			."&IncludeSelector=ChildCategories";
 
 // Load the call and capture the document returned by the GetCategoryInfo API
 $xml = simplexml_load_file($apicall);
@@ -66,46 +83,52 @@ else //no errors
 <div class="clearfix"></div>
 
 <!--row1-fluid starts-->
-<div class="row-fluid">
-	<div class="col-md-12">
-	<legend>Browse Cateogries</legend>
-	</div>
+<div class="card row-fluid">
+  <h5 class="card-header text-center">Browse Cateogries</h5>
+  <div class="card-body">
+    <form action="AddItem.php" method="post">
+			<!--row2-fluid starts-->
+			<div class="div-scrollbar form-group">
+				<div class="form-group"><select id="fcat" class="form-control"><?php echo $browse ?></select></div>
+				<div class="subcat form-group"></div>
+			</div>
+			<!--row2-fluid ends-->
+
+			<br>
+
+			<!--row2-fluid starts-->
+			<div class="row-fluid d-none">
+				<input type="submit" value="Continue" id="continue" class="btn btn-primary" disabled="disabled" />
+			</div>
+			<!--row2-fluid ends-->
+		</form>
+  </div>
 </div>
 <!--row1-fluid ends-->
 
-<form action="AddItem.php" method="post">
-	<!--row2-fluid starts-->
-	<div class="div-scrollbar">
-		<select size="15" id="fcat"><?php echo $browse ?></select>
-		<span></span>
-		<br/>
-		<div class="row-fluid ionise"></div>
-	</div>
-	<!--row2-fluid ends-->
-
-	<br/>
-
-	<!--row2-fluid starts-->
-	<div class="row-fluid">
-		<input type="submit" value="Continue" id="continue" class="btn btn-primary" disabled="disabled" />
-	</div>
-	<!--row2-fluid ends-->
-</form>
-
 <script>
-$(document).ready(function(){
-	$('#fcat').change(function(){
-		//alert($('#fcat').val());
-		var catId = $('#fcat').val();
-		$.get('getCategoriesInfo.php?catId='+catId, function(response,status){
-			if(status=='success'){
-				//console.log(response);
-				$('.div-scrollbar > span').html(response);
-			}
-		});
-	}); //select onchange
+$('#fcat').change(function(){
+	let catId = $('#fcat').val();
+	$.ajax({
+		url:'getCategoriesInfo.php?catId='+catId,
+		method: 'GET'
+	})
+	.done(function(response) {
+		$('div.div-scrollbar > div.subcat').html(response);
+	})
+	.fail(function() {
+		console.log("error");
+	});
 });
 </script>
 
-</body>
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017-2020 Your Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
 </html>

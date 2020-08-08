@@ -1,0 +1,54 @@
+/*************Edit By Joomler****************/
+/* table.tablesorter thead tr .header {
+  background-image: url(i/bg.gif);
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
+} */
+
+.clearfix{
+  clear:both;
+}
+
+/* .div-scrollbar{
+  height: 400px;
+  border: 1px solid #D0CECE;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  white-space: nowrap;
+  padding: 10px;
+  position: relative;
+} */
+
+/* .columns{
+  width:215px !important;
+  margin:5px;
+} */
+
+/* .nocategories{
+  position: absolute;
+  top: 170px;
+} */
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.container {
+  max-width: 960px;
+}
+
+.lh-condensed { line-height: 1.25; }
+
+/*************Edit By Joomler****************/

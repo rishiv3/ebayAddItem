@@ -7,7 +7,7 @@
 
     // these keys can be obtained by registering at http://developer.ebay.com
     
-    $production         = true;   // toggle to true if going against production
+    $production         = false;   // toggle to true if going against production
     $compatabilityLevel = 825;    // eBay API version
     
     if ($production) {
@@ -18,7 +18,8 @@
         $serverUrl = 'https://api.ebay.com/ws/api.dll';      // server URL different for prod and sandbox
         //the token representing the eBay user to assign the call with
         $userToken = 'Production_usertoken'; 
-        $paypalEmailAddress= 'PAYPAL_EMAIL_ADDRESS';		
+        $paypalEmailAddress= 'PAYPAL_EMAIL_ADDRESS';
+        $endpoint = 'http://open.api.ebay.com/shopping';		
     } else {  
         $devID = 'sandbox_devID';         // insert your devID for sandbox
         $appID = 'sandbox_appID';   // different from prod keys
@@ -28,6 +29,8 @@
         // the token representing the eBay user to assign the call with
         // this token is a long string - don't insert new lines - different from prod token
         $userToken = 'sandbox_usertoken'; 
-		$paypalEmailAddress = 'SANDBOX_PAYPAL_EMAIL_ADDRESS';		
+		$paypalEmailAddress = 'SANDBOX_PAYPAL_EMAIL_ADDRESS';
+        // Sandbox URL for testing	
+        $endpoint = 'http://open.api.sandbox.ebay.com/Shopping'; 		
     }
 ?>
