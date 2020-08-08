@@ -24,10 +24,12 @@ and for more help - http://developer.ebay.com/devzone/xml/docs/reference/ebay/ad
 
 And you are ready to use this app :)
 
-
 1. Added Bootstrap.
 2. Fixed many bugs
 3. udpated code.
+
+Test - udpate the api[s]
+waiting for developer.ebay.com to re-enable my acc. 
 
 TODO - 
 1. Add React
