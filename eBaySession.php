@@ -13,18 +13,16 @@ class eBaySession
 	/**	__construct
 		Constructor to make a new instance of eBaySession with the details needed to make a call
 		Input:	$userRequestToken - the authentication token fir the user making the call
-				$developerID - Developer key obtained when registered at http://developer.ebay.com
-				$applicationID - Application key obtained when registered at http://developer.ebay.com
-				$certificateID - Certificate key obtained when registered at http://developer.ebay.com
-				$useTestServer - Boolean, if true then Sandbox server is used, otherwise production server is used
-				$compatabilityLevel - API version this is compatable with
-				$siteToUseID - the Id of the eBay site to associate the call iwht (0 = US, 2 = Canada, 3 = UK, ...)
-				$callName  - The name of the call being made (e.g. 'GeteBayOfficialTime')
+		$developerID - Developer key obtained when registered at http://developer.ebay.com
+		$applicationID - Application key obtained when registered at http://developer.ebay.com
+		$certificateID - Certificate key obtained when registered at http://developer.ebay.com
+		$useTestServer - Boolean, if true then Sandbox server is used, otherwise production server is used
+		$compatabilityLevel - API version this is compatable with
+		$siteToUseID - the Id of the eBay site to associate the call iwht (0 = US, 2 = Canada, 3 = UK, ...)
+		$callName  - The name of the call being made (e.g. 'GeteBayOfficialTime')
 		Output:	Response string returned by the server
 	*/
-	public function __construct($userRequestToken, $developerID, $applicationID, $certificateID, $serverUrl,
-								$compatabilityLevel, $siteToUseID, $callName)
-	{
+	public function __construct($userRequestToken, $developerID, $applicationID, $certificateID, $serverUrl,$compatabilityLevel, $siteToUseID, $callName){
 		$this->requestToken = $userRequestToken;
 		$this->devID = $developerID;
 		$this->appID = $applicationID;
@@ -32,7 +30,7 @@ class eBaySession
 		$this->compatLevel = $compatabilityLevel;
 		$this->siteID = $siteToUseID;
 		$this->verb = $callName;
-        $this->serverUrl = $serverUrl;	
+    $this->serverUrl = $serverUrl;	
 	}
 	
 	
@@ -99,6 +97,7 @@ class eBaySession
 			//SiteID = 0  (US) - UK = 3, Canada = 2, Australia = 15, ....
 			//SiteID Indicates the eBay site to associate the call with
 			'X-EBAY-API-SITEID: ' . $this->siteID,
+			'X-EBAY-API-IAF-TOKEN' . $this->requestToken
 		);
 		
 		return $headers;
