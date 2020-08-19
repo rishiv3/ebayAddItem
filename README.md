@@ -34,7 +34,7 @@ waiting for developer.ebay.com to re-enable my acc.
 TODO - 
 1. Add React
 2. Create SPA
-3. Add more ebay features
+3. Add more ebay api[s]
 
 
 ## NOTE
