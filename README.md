@@ -35,6 +35,7 @@ TODO -
 1. Add React
 2. Create SPA
 3. Add more ebay api[s]
+4. Update sql
 
 
 ## NOTE
