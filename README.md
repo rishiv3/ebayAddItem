@@ -26,7 +26,7 @@ And you are ready to use this app :)
 
 1. Added Bootstrap.
 2. Fixed many bugs
-3. udpated code.
+3. udpated code
 
 Test - udpate the api[s]
 waiting for developer.ebay.com to re-enable my acc. 
@@ -35,7 +35,7 @@ TODO -
 1. Add React
 2. Create SPA
 3. Add more ebay api[s]
-4. Update sql
+4. Update sqlbwith examples
 
 
 ## NOTE
