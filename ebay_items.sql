@@ -19,35 +19,39 @@ CREATE TABLE IF NOT EXISTS `ebay_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
---
--- Table structure for table `categories`
---
 
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `parent_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `level` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `path` varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `extension` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+CREATE TABLE `content` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `asset_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'FK to the #__assets table.',
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-  `note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `published` tinyint(1) NOT NULL DEFAULT 0,
-  `checked_out` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `introtext` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fulltext` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` tinyint(3) NOT NULL DEFAULT 0,
+  `catid` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `created_by_alias` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `checked_out` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `images` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `urls` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attribs` varchar(5120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `ordering` int(11) NOT NULL DEFAULT 0,
+  `metakey` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `metadesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `access` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `params` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `metadesc` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The meta description for the page.',
-  `metakey` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The meta keywords for the page.',
-  `metadata` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'JSON encoded metadata properties.',
-  `created_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `created_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `modified_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `modified_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `hits` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `language` char(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `version` int(10) UNSIGNED NOT NULL DEFAULT 1
+  `metadata` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `featured` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Set if article is featured.',
+  `language` char(7) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'The language code for the article.',
+  `xreference` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'A reference to enable linkages to external data sets.',
+  `note` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -55,25 +59,27 @@ CREATE TABLE `categories` (
 --
 
 --
--- Indexes for table `categories`
+-- Indexes for table `content`
 --
-ALTER TABLE `categories`
+ALTER TABLE `content`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `cat_idx` (`extension`,`published`,`access`),
   ADD KEY `idx_access` (`access`),
   ADD KEY `idx_checkout` (`checked_out`),
-  ADD KEY `idx_path` (`path`(100)),
-  ADD KEY `idx_left_right` (`lft`,`rgt`),
-  ADD KEY `idx_alias` (`alias`(100)),
-  ADD KEY `idx_language` (`language`);
+  ADD KEY `idx_state` (`state`),
+  ADD KEY `idx_catid` (`catid`),
+  ADD KEY `idx_createdby` (`created_by`),
+  ADD KEY `idx_featured_catid` (`featured`,`catid`),
+  ADD KEY `idx_language` (`language`),
+  ADD KEY `idx_xreference` (`xreference`),
+  ADD KEY `idx_alias` (`alias`(191));
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT for table `content`
 --
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `content`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
