@@ -19,37 +19,9 @@ CREATE TABLE IF NOT EXISTS `ebay_items` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ;
 
-CREATE TABLE `content` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
-  `introtext` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fulltext` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` tinyint(3) NOT NULL DEFAULT 0,
-  `catid` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `created_by` varchar(20) NOT NULL DEFAULT 0,
-  `created_by_alias` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `modified_by` varchar(20) NOT NULL DEFAULT 0,
-  `images` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `urls` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attribs` varchar(5120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `version` int(10) UNSIGNED NOT NULL DEFAULT 1,
-  `ordering` int(11) NOT NULL DEFAULT 0,
-  `metakey` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `metadesc` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `access` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `hits` int(10) UNSIGNED NOT NULL DEFAULT 0,
-  `metadata` text COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE `ebay_items`
+  ADD PRIMARY KEY (`id`);
 
-
-ALTER TABLE `content`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_state` (`state`),
-  ADD KEY `idx_catid` (`catid`);
-
-ALTER TABLE `content`
+ALTER TABLE `ebay_items`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
