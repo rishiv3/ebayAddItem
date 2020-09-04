@@ -25,5 +25,3 @@ ALTER TABLE `ebay_items`
 ALTER TABLE `ebay_items`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
-
--- add more example
